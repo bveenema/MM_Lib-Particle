@@ -1,0 +1,4 @@
+[submodule "lib/MM_Lib-Base"]
+	path = lib/MM_Lib-Base
+	url = https://github.com/bveenema/MM_Lib-Base.git
+	branch = master
