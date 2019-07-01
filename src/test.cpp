@@ -19,7 +19,10 @@ void setup()
 
 void loop()
 {
-	Serial.printlnf("MySetting: %d", MySetting);
+	auto value = MySetting;
+	int value2 = MySetting;
+	const int& value3 = MySetting;
+	Serial.printlnf("MySetting: %d, %d, %d, %d", (int)MySetting, MySetting, value2, value3);
 
 	manager.test();
 
