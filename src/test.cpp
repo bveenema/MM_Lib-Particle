@@ -12,18 +12,30 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 MM_Manager AppManager(10);
 
 // Initialize objects from the lib
-MM_Object_Base<int> MySetting(AppManager, "Setting", 0);
+MM_Object_Base<int> MyInt("Setting", 0);
+MM_Object_Base<unsigned> MyUnsigned("Unsigned");
+MM_Object_Base<uint8_t> MyUint8_t("uint8_t");
+MM_Object_Base<float> MyFloat("float");
+MM_Object_Base<double> MyDouble("double");
 
 void setup()
 {
 	delay(1000);
-	MySetting = 10;
+	MyInt = -30;
+	MyUnsigned = 10;
+	MyUint8_t = 255;
+	MyFloat = 3.14;
+	MyDouble = 3.14568910289471292842582;
+
+	AppManager.Add(MyInt);
+	AppManager.Add(MyUnsigned);
+	AppManager.Add(MyUint8_t);
+	AppManager.Add(MyFloat);
+	AppManager.Add(MyDouble);
 }
 
 void loop()
 {
-	Serial.printlnf("MySetting: %d", (int)MySetting);
-
 	AppManager.test();
 
 	// Empty Serial Output Buffer and get ready for new FW
