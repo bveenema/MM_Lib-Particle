@@ -32,13 +32,22 @@ void setup()
 	AppManager.Add(MyUint8_t);
 	AppManager.Add(MyFloat);
 	AppManager.Add(MyDouble);
+
+	AppManager.OnReady([](){ AppManager.test(); });
 }
 
 void loop()
 {
-	AppManager.test();
+	static unsigned LastValueUpdate = 0;
+	if(millis() - LastValueUpdate > 250)
+	{
+		LastValueUpdate = millis();
+		MyInt = MyInt + 1;
+		Serial.printlnf("0:MyInt: %i\r\n", MyInt);
+	}
+}
 
-	// Empty Serial Output Buffer and get ready for new FW
-	Serial.flush();
-	System.dfu();
+void serialEvent(){
+  if(WiFi.listening()) return;
+  AppManager.Read(Serial.read());
 }
