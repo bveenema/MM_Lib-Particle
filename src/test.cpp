@@ -43,7 +43,7 @@ void loop()
 	{
 		LastValueUpdate = millis();
 		MyInt = MyInt + 1;
-		Serial.printlnf("0:MyInt: %i\r\n", MyInt);
+		AppManager.DebugPrintf("MyInt: %i", MyInt);
 	}
 }
 
