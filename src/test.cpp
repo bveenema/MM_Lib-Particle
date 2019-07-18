@@ -12,11 +12,12 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 MM_Manager AppManager(10);
 
 // Initialize objects from the lib
-MM_Object_Base<int> MyInt("Setting", 0);
-MM_Object_Base<unsigned> MyUnsigned("Unsigned");
-MM_Object_Base<uint8_t> MyUint8_t("uint8_t");
-MM_Object_Base<float> MyFloat("float");
-MM_Object_Base<double> MyDouble("double");
+MM_Input<int> MyInt("Setting", 0);
+MM_Input<unsigned> MyUnsigned("Unsigned");
+MM_Input<uint8_t> MyUint8_t("uint8_t");
+MM_Input<float> MyFloat("float");
+MM_Input<double> MyDouble("double");
+MM_Input<char*> MyString("string", "value of MyString");
 
 void setup()
 {
@@ -32,6 +33,7 @@ void setup()
 	AppManager.Add(MyUint8_t);
 	AppManager.Add(MyFloat);
 	AppManager.Add(MyDouble);
+	AppManager.Add(MyString);
 
 	AppManager.OnReady([](){ AppManager.test(); });
 }
@@ -42,12 +44,13 @@ void loop()
 	if(millis() - LastValueUpdate > 250)
 	{
 		LastValueUpdate = millis();
-		MyInt = MyInt + 1;
-		AppManager.DebugPrintf("MyInt: %i", MyInt);
+		MyInt += 1;
+		AppManager.DebugPrintf("MyInt: %i", (int)MyInt);
 	}
 }
 
-void serialEvent(){
+void serialEvent()
+{
   if(WiFi.listening()) return;
   AppManager.Read(Serial.read());
 }
