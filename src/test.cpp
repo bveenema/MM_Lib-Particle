@@ -17,12 +17,17 @@ MM_Input<unsigned> MyUnsigned("Unsigned");
 MM_Input<uint8_t> MyUint8_t("uint8_t");
 MM_Input<float> MyFloat("float");
 MM_Input<double> MyDouble("double");
-MM_Input<char*> MyString("string", "value of MyString");
 
 void setup()
 {
 	delay(1000);
 	MyInt = -30;
+	MyInt.min.value = -256;
+	MyInt.min.defined = true;
+	MyInt.max.value = 256;
+	MyInt.max.defined = true;
+	MyInt.def.value = 10;
+	MyInt.def.defined = true;
 	MyUnsigned = 10;
 	MyUint8_t = 255;
 	MyFloat = 3.14;
@@ -33,7 +38,6 @@ void setup()
 	AppManager.Add(MyUint8_t);
 	AppManager.Add(MyFloat);
 	AppManager.Add(MyDouble);
-	AppManager.Add(MyString);
 
 	AppManager.OnReady([](){ AppManager.test(); });
 }
