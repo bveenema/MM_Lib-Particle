@@ -17,27 +17,29 @@ MM_Input<unsigned> MyUnsigned("Unsigned");
 MM_Input<uint8_t> MyUint8_t("uint8_t");
 MM_Input<float> MyFloat("float");
 MM_Input<double> MyDouble("double");
+MM_Input<upFloat_t<3>> MyUPFloat3("Psuedo-Float");
 
 void setup()
 {
 	delay(1000);
 	MyInt = -30;
-	MyInt.min.value = -256;
-	MyInt.min.defined = true;
-	MyInt.max.value = 256;
-	MyInt.max.defined = true;
-	MyInt.def.value = 10;
-	MyInt.def.defined = true;
+	MyInt.min = -256;
+	MyInt.max = 256;
+	MyInt.def = 10;
+	strcpy(MyInt.unit, "Unit");
+
 	MyUnsigned = 10;
 	MyUint8_t = 255;
 	MyFloat = 3.14;
 	MyDouble = 3.14568910289471292842582;
+	MyUPFloat3 = (float)6;
 
 	AppManager.Add(MyInt);
 	AppManager.Add(MyUnsigned);
 	AppManager.Add(MyUint8_t);
 	AppManager.Add(MyFloat);
 	AppManager.Add(MyDouble);
+	AppManager.Add(MyUPFloat3);
 
 	AppManager.OnReady([](){ AppManager.test(); });
 }
@@ -48,8 +50,8 @@ void loop()
 	if(millis() - LastValueUpdate > 250)
 	{
 		LastValueUpdate = millis();
-		MyInt += 1;
-		AppManager.DebugPrintf("MyInt: %i", (int)MyInt);
+		// MyInt += 1;
+		// AppManager.DebugPrintf("MyInt: %i", (int)MyInt);
 	}
 }
 
